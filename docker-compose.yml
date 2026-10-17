@@ -1,0 +1,22 @@
+# Local services (DG §13). PostgreSQL is the source of truth.
+# Redis is not required yet: the realtime bus is in-process for a single
+# instance (ADR-0002); add it when running more than one app instance.
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: restaurant
+      POSTGRES_PASSWORD: restaurant
+      POSTGRES_DB: restaurant
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infrastructure/docker/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U restaurant -d restaurant"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  pgdata:

@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens derived from the BRD demo screens: deep navy chrome, warm
+ * off-white canvas, a single orange accent, and status colours (blue = new,
+ * orange = preparing, green = ready). Contrast pairs are WCAG 2.2 AA.
+ */
+@theme {
+  --font-sans: var(--font-lato), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-canvas: #f5f2ed;
+  --color-surface: #ffffff;
+  --color-line: #e4ded5;
+  --color-line-strong: #cfc7bb;
+
+  --color-ink: #1b2537;
+  --color-ink-soft: #3d4a5e;
+  --color-muted: #5f6b7d;
+
+  --color-navy-950: #121a29;
+  --color-navy-900: #1c2940;
+  --color-navy-800: #26365a;
+  --color-navy-700: #33466f;
+
+  --color-brand-50: #fff4ec;
+  --color-brand-100: #ffe3d0;
+  --color-brand-300: #f2783d; /* text/accents on navy: 5.2:1 */
+  --color-brand-500: #e2581c;
+  --color-brand-600: #c94a12;
+  --color-brand-700: #a83c0d;
+
+  --color-info-50: #ebf3fe;
+  --color-info-600: #1f66c7;
+  --color-info-700: #17509f;
+  --color-warn-50: #fff3e6;
+  --color-warn-600: #c85a0c;
+  --color-warn-700: #9e4609;
+  --color-ok-50: #eaf6ee;
+  --color-ok-600: #22803f;
+  --color-ok-700: #1a6532;
+  --color-danger-50: #fdeeee;
+  --color-danger-600: #c62f2f;
+  --color-danger-700: #a12424;
+  --color-accent-50: #f1edfd;
+  --color-accent-600: #6a49c8;
+
+  --radius-card: 0.875rem;
+  --shadow-card: 0 1px 2px rgb(18 26 41 / 0.06), 0 1px 1px rgb(18 26 41 / 0.04);
+  --shadow-pop: 0 12px 32px rgb(18 26 41 / 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-info-600);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--color-brand-100);
+  }
+  dialog::backdrop {
+    background: rgb(18 26 41 / 0.55);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
